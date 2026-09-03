@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { Outlet, Route, HashRouter, Routes } from 'react-router-dom'
 import { PaletteProvider } from './lib/PaletteProvider'
 import { SiteHeader } from './chrome/SiteHeader'
@@ -40,6 +41,7 @@ export default function App() {
           </Route>
         </Routes>
       </HashRouter>
+      <Analytics />
     </PaletteProvider>
   )
 }
