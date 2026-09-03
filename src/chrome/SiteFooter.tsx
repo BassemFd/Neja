@@ -13,6 +13,10 @@ export function SiteFooter() {
           .
         </p>
         <p>Built by a four-stage Claude Code agent pipeline. See /pipeline.</p>
+        <p className="mt-2 text-[var(--shell-paper)]">
+          Created by Bassem Fayed with <span aria-hidden="true">♥</span>
+          <span className="sr-only">love</span>
+        </p>
       </div>
     </footer>
   )

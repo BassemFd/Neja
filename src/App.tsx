@@ -3,6 +3,7 @@ import { Outlet, Route, HashRouter, Routes } from 'react-router-dom'
 import { PaletteProvider } from './lib/PaletteProvider'
 import { SiteHeader } from './chrome/SiteHeader'
 import { SiteFooter } from './chrome/SiteFooter'
+import { PaletteDock } from './chrome/PaletteDock'
 import { Home } from './pages/Home'
 import { ComponentsIndex } from './pages/ComponentsIndex'
 import { ButtonPage } from './pages/components/Button'
@@ -14,12 +15,13 @@ import { PipelinePage } from './pages/PipelinePage'
 
 function Shell() {
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--shell-ink)]">
+    <div className="flex min-h-screen flex-col bg-[var(--shell-ink)] pb-14">
       <SiteHeader />
       <main className="flex-1">
         <Outlet />
       </main>
       <SiteFooter />
+      <PaletteDock />
     </div>
   )
 }

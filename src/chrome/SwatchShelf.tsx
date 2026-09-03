@@ -37,7 +37,7 @@ export function SwatchShelf() {
         role="radiogroup"
         aria-label="Wada color combination"
         onKeyDown={onKeyDown}
-        className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-4"
+        className="flex flex-wrap gap-3"
       >
         {accessibleCombinations.map((id) => {
           const isActive = id === comboId
@@ -51,7 +51,7 @@ export function SwatchShelf() {
               tabIndex={isActive ? 0 : -1}
               onClick={() => setComboId(id)}
               className={cn(
-                'group flex shrink-0 snap-start flex-col items-stretch overflow-hidden rounded-[var(--radius-md)] border transition-transform duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--shell-seal)]',
+                'group flex flex-col items-stretch overflow-hidden rounded-[var(--radius-md)] border transition-transform duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--shell-seal)]',
                 isActive
                   ? 'border-[var(--shell-seal)] -translate-y-1.5 shadow-[0_6px_0_0_var(--shell-seal)]'
                   : 'border-[var(--shell-ecru)]/40 hover:-translate-y-1',

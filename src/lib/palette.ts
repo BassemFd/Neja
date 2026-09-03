@@ -71,16 +71,38 @@ export function resolvePalette(comboId: number): ResolvedPalette {
   const background = byLightness[byLightness.length - 1]
   const text = byLightness[0]
 
+  // Surface: the lightest non-background color that still contrasts enough
+  // against text to be readable. Trying candidates from lightest downward
+  // (instead of always taking "second lightest") rescues combinations where
+  // the second-lightest color happens to sit too close to text. Falling
+  // back to background itself (rather than forcing a bad pick) is always
+  // safe, since background already cleared the stricter text contrast.
+  const surfaceCandidates = byLightness.slice(0, -1).reverse()
+  const surface =
+    surfaceCandidates.find((c) => contrastRatio(text, c) >= WCAG_AA_UI) ?? background
+
+  // Primary/secondary/accent/border: sorted by chroma (most vivid first),
+  // then cycled with modulo instead of clamping every extra role to the
+  // last distinct color. With 4 colors available all four roles differ;
+  // with fewer, roles repeat in a rotating pattern (e.g. primary===accent,
+  // secondary===border) rather than three roles collapsing onto the same
+  // single leftover color, which was the old behavior.
+  //
+  // The pool must never include `background`: a 2-color combination has
+  // nothing left over after background+text, and falling back to the full
+  // `colors` array (as this used to) could hand `background`'s own hex to
+  // `primary` — a "primary" button that's literally the same color as the
+  // page behind it, with no border to give it an edge either. Falling back
+  // to `[text]` instead guarantees every one of these roles is at least as
+  // readable against background as text itself already is.
   const remaining = colors.filter((c) => c !== background && c !== text)
-  const pool = remaining.length > 0 ? remaining : colors
+  const pool = remaining.length > 0 ? remaining : [text]
   const byChroma = [...pool].sort((x, y) => chroma(y) - chroma(x))
 
-  const primary = byChroma[0] ?? background
-  const secondary = byChroma[1] ?? primary
-  const accent = byChroma[2] ?? secondary
-
-  const surface = byLightness[Math.max(0, byLightness.length - 2)] ?? background
-  const border = byLightness[Math.max(0, Math.min(byLightness.length - 1, 1))] ?? text
+  const primary = byChroma[0 % byChroma.length]
+  const secondary = byChroma[1 % byChroma.length]
+  const accent = byChroma[2 % byChroma.length]
+  const border = byChroma[3 % byChroma.length]
 
   const white: WadaColor = {
     name: 'white',
