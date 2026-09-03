@@ -1,0 +1,24 @@
+# Token naming conventions
+
+Semantic roles only — never a raw color name, never a literal hex, anywhere outside `src/lib/palette.ts` and the generated `src/tokens/tokens.css`.
+
+## Roles (`TokenRole` in `src/lib/palette.ts`)
+
+| Token | CSS var | Use for |
+|---|---|---|
+| `background` | `--color-background` | Page/app background |
+| `surface` | `--color-surface` | Cards, panels, anything raised above the background |
+| `text` | `--color-text` | Primary text |
+| `textMuted` | `--color-text-muted` | Secondary/caption text |
+| `primary` | `--color-primary` | Primary action fill (main CTA buttons) |
+| `primaryForeground` | `--color-primary-foreground` | Text/icon on top of `primary` |
+| `secondary` | `--color-secondary` | Secondary action fill |
+| `secondaryForeground` | `--color-secondary-foreground` | Text/icon on top of `secondary` |
+| `accent` | `--color-accent` | Highlights, badges, focus rings |
+| `border` | `--color-border` | Dividers, input borders, card outlines |
+
+## Rules
+
+- Components consume these via Tailwind arbitrary-value utilities against the CSS vars (`bg-[var(--color-primary)]`) or via the `cva` variant definitions in `src/components` — never a literal Tailwind color class (`bg-red-500`) and never an inline hex.
+- Re-theming is a `:root` CSS-variable rewrite (see the palette switcher in `src/components/PaletteSwitcher.tsx` once built) — a component should never need code changes to look right under a new Wada combination.
+- If a component needs a color role that doesn't exist yet in this table, that's a real gap — add the role to `TokenRole` and to `resolvePalette()`'s mapping logic, don't smuggle in a one-off hardcoded value.

@@ -1,0 +1,54 @@
+/*
+ * Two token layers, deliberately separate:
+ *   --shell-*   fixed site chrome identity, hand-picked Wada colors, never
+ *               rewritten by the palette switcher (nav, hero frame, footer).
+ *   --color-*   the switchable component-canvas tokens, rewritten at runtime
+ *               by PaletteProvider from resolvePalette()'s output. The
+ *               default below is resolvePalette(155) baked in as a fallback
+ *               so the canvas renders correctly before JS hydrates.
+ * Every hex on this page — shell or canvas — is one of Wada's 159 named
+ * colors. See docs/agents/palette-rule.md.
+ */
+:root {
+  /* shell: Deep Indigo / Ivory Buff / Ecru / Jasper Red / Benzol Green / Slate Color */
+  --shell-ink: #051230;
+  --shell-paper: #ebd3a2;
+  --shell-ecru: #c2ae93;
+  --shell-seal: #eb5324;
+  --shell-jade: #00978d;
+  --shell-slate: #34454c;
+
+  /* canvas: default = Wada combination No. 155 */
+  --color-background: #eb5324;
+  --color-surface: #00978d;
+  --color-text: #051230;
+  --color-text-muted: #051230;
+  --color-primary: #00978d;
+  --color-primary-foreground: #051230;
+  --color-secondary: #00978d;
+  --color-secondary-foreground: #051230;
+  --color-accent: #00978d;
+  --color-border: #00978d;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 10px;
+}
+
+/* @theme registers these as Tailwind utilities (font-display, font-sans, font-mono) — a
+   plain :root custom property alone doesn't generate a utility class in Tailwind v4. */
+@theme {
+  --font-display: 'Zen Old Mincho', serif;
+  --font-sans: 'Zen Kaku Gothic New', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
