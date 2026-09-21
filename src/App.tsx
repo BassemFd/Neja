@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/react'
 import { Outlet, Route, HashRouter, Routes } from 'react-router-dom'
 import { PaletteProvider } from './lib/PaletteProvider'
+import { FontProvider } from './lib/FontProvider'
 import { SiteHeader } from './chrome/SiteHeader'
 import { SiteFooter } from './chrome/SiteFooter'
 import { PaletteDock } from './chrome/PaletteDock'
@@ -29,21 +30,23 @@ function Shell() {
 export default function App() {
   return (
     <PaletteProvider>
-      <HashRouter>
-        <Routes>
-          <Route element={<Shell />}>
-            <Route index element={<Home />} />
-            <Route path="components" element={<ComponentsIndex />} />
-            <Route path="components/button" element={<ButtonPage />} />
-            <Route path="components/card" element={<CardPage />} />
-            <Route path="components/badge" element={<BadgePage />} />
-            <Route path="components/input" element={<InputPage />} />
-            <Route path="components/callout" element={<CalloutPage />} />
-            <Route path="pipeline" element={<PipelinePage />} />
-          </Route>
-        </Routes>
-      </HashRouter>
-      <Analytics />
+      <FontProvider>
+        <HashRouter>
+          <Routes>
+            <Route element={<Shell />}>
+              <Route index element={<Home />} />
+              <Route path="components" element={<ComponentsIndex />} />
+              <Route path="components/button" element={<ButtonPage />} />
+              <Route path="components/card" element={<CardPage />} />
+              <Route path="components/badge" element={<BadgePage />} />
+              <Route path="components/input" element={<InputPage />} />
+              <Route path="components/callout" element={<CalloutPage />} />
+              <Route path="pipeline" element={<PipelinePage />} />
+            </Route>
+          </Routes>
+        </HashRouter>
+        <Analytics />
+      </FontProvider>
     </PaletteProvider>
   )
 }

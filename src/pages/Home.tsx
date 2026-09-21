@@ -1,5 +1,6 @@
 import { usePalette } from '../lib/PaletteProvider'
 import { SwatchShelf } from '../chrome/SwatchShelf'
+import { FontShelf } from '../chrome/FontShelf'
 import { LiveCanvas } from '../chrome/LiveCanvas'
 
 export function Home() {
@@ -27,6 +28,10 @@ export function Home() {
 
       <section className="mt-20">
         <SwatchShelf />
+      </section>
+
+      <section className="mt-20">
+        <FontShelf />
       </section>
     </div>
   )
