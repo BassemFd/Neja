@@ -53,11 +53,11 @@ export function BadgePage() {
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-6">
                     <Badge variant={variant as any}>Label</Badge>
-                    <span className="font-mono text-xs text-[var(--shell-ecru)]">dot={false}</span>
+                    <span className="font-mono text-xs text-[var(--shell-ecru)]">{'dot={false}'}</span>
                   </div>
                   <div className="flex items-center gap-6">
                     <Badge variant={variant as any} dot>Label</Badge>
-                    <span className="font-mono text-xs text-[var(--shell-ecru)]">dot={true}</span>
+                    <span className="font-mono text-xs text-[var(--shell-ecru)]">{'dot={true}'}</span>
                   </div>
                 </div>
               </div>
