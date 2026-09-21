@@ -31,6 +31,36 @@ function applyToDocument(palette: ResolvedPalette) {
   for (const role of Object.keys(CSS_VAR_BY_ROLE) as TokenRole[]) {
     root.style.setProperty(CSS_VAR_BY_ROLE[role], palette.tokens[role])
   }
+  applyFavicon(palette)
+}
+
+/**
+ * The tab favicon IS the current combination: a rounded square split into the
+ * combo's raw Wada colors (2–4 of them), regenerated as an inline SVG data URI
+ * on every switch. Rebuilt here rather than shipped as a static file so it
+ * tracks resolvePalette() with zero drift — the same source of truth as the
+ * --color-* vars above.
+ */
+function applyFavicon(palette: ResolvedPalette) {
+  const colors = palette.sourceColors.map((c) => c.hex)
+  const w = 32 / colors.length
+  const stripes = colors
+    // +0.6 overlap hides sub-pixel seams between stripes when rasterized small.
+    .map((c, i) => `<rect x="${i * w}" width="${w + 0.6}" height="32" fill="${c}"/>`)
+    .join('')
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">` +
+    `<defs><clipPath id="r"><rect width="32" height="32" rx="7"/></clipPath></defs>` +
+    `<g clip-path="url(#r)">${stripes}</g></svg>`
+
+  let link = document.querySelector<HTMLLinkElement>('link[rel="icon"]')
+  if (!link) {
+    link = document.createElement('link')
+    link.rel = 'icon'
+    document.head.appendChild(link)
+  }
+  link.type = 'image/svg+xml'
+  link.href = 'data:image/svg+xml,' + encodeURIComponent(svg)
 }
 
 export function PaletteProvider({ children }: { children: ReactNode }) {
