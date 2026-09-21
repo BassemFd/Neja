@@ -1,0 +1,44 @@
+{
+  "color": {
+    "background": {
+      "$value": "{color.wada.jasper-red}",
+      "$type": "color"
+    },
+    "surface": {
+      "$value": "{color.wada.benzol-green}",
+      "$type": "color"
+    },
+    "text": {
+      "$value": "{color.wada.deep-indigo}",
+      "$type": "color"
+    },
+    "text-muted": {
+      "$value": "{color.wada.deep-indigo}",
+      "$type": "color"
+    },
+    "primary": {
+      "$value": "{color.wada.benzol-green}",
+      "$type": "color"
+    },
+    "primary-foreground": {
+      "$value": "{color.wada.deep-indigo}",
+      "$type": "color"
+    },
+    "secondary": {
+      "$value": "{color.wada.benzol-green}",
+      "$type": "color"
+    },
+    "secondary-foreground": {
+      "$value": "{color.wada.deep-indigo}",
+      "$type": "color"
+    },
+    "accent": {
+      "$value": "{color.wada.benzol-green}",
+      "$type": "color"
+    },
+    "border": {
+      "$value": "{color.wada.benzol-green}",
+      "$type": "color"
+    }
+  }
+}

@@ -1,0 +1,642 @@
+{
+  "color": {
+    "wada": {
+      "hermosa-pink": {
+        "$value": "#f9c1ce",
+        "$type": "color"
+      },
+      "corinthian-pink": {
+        "$value": "#f8b6ba",
+        "$type": "color"
+      },
+      "cameo-pink": {
+        "$value": "#e0b3b6",
+        "$type": "color"
+      },
+      "fawn": {
+        "$value": "#d1b0a7",
+        "$type": "color"
+      },
+      "light-brown-drab": {
+        "$value": "#b59392",
+        "$type": "color"
+      },
+      "coral-red": {
+        "$value": "#f58e84",
+        "$type": "color"
+      },
+      "fresh-color": {
+        "$value": "#f6917e",
+        "$type": "color"
+      },
+      "grenadine-pink": {
+        "$value": "#f48067",
+        "$type": "color"
+      },
+      "eosine-pink": {
+        "$value": "#f37f94",
+        "$type": "color"
+      },
+      "spinel-red": {
+        "$value": "#f27291",
+        "$type": "color"
+      },
+      "old-rose": {
+        "$value": "#d46d7a",
+        "$type": "color"
+      },
+      "eugenia-red-a": {
+        "$value": "#e2625e",
+        "$type": "color"
+      },
+      "eugenia-red-b": {
+        "$value": "#da525d",
+        "$type": "color"
+      },
+      "raw-sienna": {
+        "$value": "#bb7125",
+        "$type": "color"
+      },
+      "vinaceous-tawny": {
+        "$value": "#c56127",
+        "$type": "color"
+      },
+      "jasper-red": {
+        "$value": "#eb5324",
+        "$type": "color"
+      },
+      "spectrum-red": {
+        "$value": "#e31f26",
+        "$type": "color"
+      },
+      "red-orange": {
+        "$value": "#dd4027",
+        "$type": "color"
+      },
+      "etruscan-red": {
+        "$value": "#c55347",
+        "$type": "color"
+      },
+      "burnt-sienna": {
+        "$value": "#ae5224",
+        "$type": "color"
+      },
+      "ochre-red": {
+        "$value": "#ab544d",
+        "$type": "color"
+      },
+      "scarlet": {
+        "$value": "#cb2f43",
+        "$type": "color"
+      },
+      "carmine": {
+        "$value": "#cc1236",
+        "$type": "color"
+      },
+      "indian-lake": {
+        "$value": "#c53c69",
+        "$type": "color"
+      },
+      "rosolanc-purple": {
+        "$value": "#b73f74",
+        "$type": "color"
+      },
+      "pomegranite-purple": {
+        "$value": "#b71f57",
+        "$type": "color"
+      },
+      "hydrangea-red": {
+        "$value": "#a94151",
+        "$type": "color"
+      },
+      "brick-red": {
+        "$value": "#a84222",
+        "$type": "color"
+      },
+      "carmine-red": {
+        "$value": "#a62c37",
+        "$type": "color"
+      },
+      "pompeian-red": {
+        "$value": "#ab2439",
+        "$type": "color"
+      },
+      "red": {
+        "$value": "#a72144",
+        "$type": "color"
+      },
+      "brown": {
+        "$value": "#7c4226",
+        "$type": "color"
+      },
+      "hay-s-russet": {
+        "$value": "#793327",
+        "$type": "color"
+      },
+      "vandyke-red": {
+        "$value": "#82241f",
+        "$type": "color"
+      },
+      "pansy-purple": {
+        "$value": "#7d133a",
+        "$type": "color"
+      },
+      "pale-burnt-lake": {
+        "$value": "#802626",
+        "$type": "color"
+      },
+      "violet-red": {
+        "$value": "#642d5e",
+        "$type": "color"
+      },
+      "vistoris-lake": {
+        "$value": "#6d4145",
+        "$type": "color"
+      },
+      "sulpher-yellow": {
+        "$value": "#f5ecc2",
+        "$type": "color"
+      },
+      "pale-lemon-yellow": {
+        "$value": "#ffefae",
+        "$type": "color"
+      },
+      "naples-yellow": {
+        "$value": "#fbe6a0",
+        "$type": "color"
+      },
+      "ivory-buff": {
+        "$value": "#ebd3a2",
+        "$type": "color"
+      },
+      "seashell-pink": {
+        "$value": "#fdd4bd",
+        "$type": "color"
+      },
+      "light-pinkish-cinnamon": {
+        "$value": "#fcc79b",
+        "$type": "color"
+      },
+      "pinkish-cinnamon": {
+        "$value": "#eeb480",
+        "$type": "color"
+      },
+      "cinnamon-buff": {
+        "$value": "#fdc57e",
+        "$type": "color"
+      },
+      "cream-yellow": {
+        "$value": "#fdbf68",
+        "$type": "color"
+      },
+      "golden-yellow": {
+        "$value": "#f3a257",
+        "$type": "color"
+      },
+      "vinaceous-cinnamon": {
+        "$value": "#eea78c",
+        "$type": "color"
+      },
+      "ochraceous-salmon": {
+        "$value": "#d8a37b",
+        "$type": "color"
+      },
+      "isabella-color": {
+        "$value": "#c5a56e",
+        "$type": "color"
+      },
+      "maple": {
+        "$value": "#c59f6b",
+        "$type": "color"
+      },
+      "olive-buff": {
+        "$value": "#c1c494",
+        "$type": "color"
+      },
+      "ecru": {
+        "$value": "#c2ae93",
+        "$type": "color"
+      },
+      "yellow": {
+        "$value": "#fff200",
+        "$type": "color"
+      },
+      "lemon-yellow": {
+        "$value": "#f8ed43",
+        "$type": "color"
+      },
+      "apricot-yellow": {
+        "$value": "#ffdd00",
+        "$type": "color"
+      },
+      "pyrite-yellow": {
+        "$value": "#cab356",
+        "$type": "color"
+      },
+      "olive-ocher": {
+        "$value": "#d6b43e",
+        "$type": "color"
+      },
+      "yellow-ocher": {
+        "$value": "#e2b540",
+        "$type": "color"
+      },
+      "orange-yellow": {
+        "$value": "#fcb315",
+        "$type": "color"
+      },
+      "yellow-orange": {
+        "$value": "#f99d1b",
+        "$type": "color"
+      },
+      "apricot-orange": {
+        "$value": "#f68c50",
+        "$type": "color"
+      },
+      "orange": {
+        "$value": "#f37420",
+        "$type": "color"
+      },
+      "peach-red": {
+        "$value": "#f15a30",
+        "$type": "color"
+      },
+      "english-red": {
+        "$value": "#d96629",
+        "$type": "color"
+      },
+      "cinnamon-rufous": {
+        "$value": "#c27544",
+        "$type": "color"
+      },
+      "orange-rufous": {
+        "$value": "#c16b27",
+        "$type": "color"
+      },
+      "sulphine-yellow": {
+        "$value": "#c19f2c",
+        "$type": "color"
+      },
+      "khaki": {
+        "$value": "#bc892b",
+        "$type": "color"
+      },
+      "citron-yellow": {
+        "$value": "#b2b73e",
+        "$type": "color"
+      },
+      "citrine": {
+        "$value": "#b09f36",
+        "$type": "color"
+      },
+      "buffy-citrine": {
+        "$value": "#96874d",
+        "$type": "color"
+      },
+      "dark-citrine": {
+        "$value": "#8b835b",
+        "$type": "color"
+      },
+      "light-grayish-olive": {
+        "$value": "#848061",
+        "$type": "color"
+      },
+      "krongbergs-green": {
+        "$value": "#84875e",
+        "$type": "color"
+      },
+      "olive": {
+        "$value": "#837e31",
+        "$type": "color"
+      },
+      "orange-citrine": {
+        "$value": "#986f2d",
+        "$type": "color"
+      },
+      "sudan-brown": {
+        "$value": "#a36752",
+        "$type": "color"
+      },
+      "olive-green": {
+        "$value": "#6b7140",
+        "$type": "color"
+      },
+      "light-brownish-olive": {
+        "$value": "#806e4b",
+        "$type": "color"
+      },
+      "deep-grayish-olive": {
+        "$value": "#635a3a",
+        "$type": "color"
+      },
+      "pale-raw-umber": {
+        "$value": "#71502f",
+        "$type": "color"
+      },
+      "sepia": {
+        "$value": "#644b1e",
+        "$type": "color"
+      },
+      "madder-brown": {
+        "$value": "#762c19",
+        "$type": "color"
+      },
+      "mars-brown-tobacco": {
+        "$value": "#653514",
+        "$type": "color"
+      },
+      "vandyke-brown": {
+        "$value": "#4b3317",
+        "$type": "color"
+      },
+      "turquoise-green": {
+        "$value": "#b5decc",
+        "$type": "color"
+      },
+      "glaucous-green": {
+        "$value": "#b4cdc2",
+        "$type": "color"
+      },
+      "dark-greenish-glaucous": {
+        "$value": "#b7c2a9",
+        "$type": "color"
+      },
+      "yellow-green": {
+        "$value": "#afd472",
+        "$type": "color"
+      },
+      "light-green-yellow": {
+        "$value": "#c7d14f",
+        "$type": "color"
+      },
+      "night-green": {
+        "$value": "#87c540",
+        "$type": "color"
+      },
+      "olive-yellow": {
+        "$value": "#a6a159",
+        "$type": "color"
+      },
+      "artemesia-green": {
+        "$value": "#709390",
+        "$type": "color"
+      },
+      "andover-green": {
+        "$value": "#6d7e77",
+        "$type": "color"
+      },
+      "rainette-green": {
+        "$value": "#8fa071",
+        "$type": "color"
+      },
+      "chromium-green": {
+        "$value": "#719470",
+        "$type": "color"
+      },
+      "pistachio-green": {
+        "$value": "#648f7b",
+        "$type": "color"
+      },
+      "sea-green": {
+        "$value": "#00b49b",
+        "$type": "color"
+      },
+      "benzol-green": {
+        "$value": "#00978d",
+        "$type": "color"
+      },
+      "light-porcelain-green": {
+        "$value": "#00908a",
+        "$type": "color"
+      },
+      "green": {
+        "$value": "#489b6e",
+        "$type": "color"
+      },
+      "dull-viridian-green": {
+        "$value": "#009465",
+        "$type": "color"
+      },
+      "oil-green": {
+        "$value": "#819238",
+        "$type": "color"
+      },
+      "diamine-green": {
+        "$value": "#1a7444",
+        "$type": "color"
+      },
+      "cossack-green": {
+        "$value": "#437742",
+        "$type": "color"
+      },
+      "lincoln-green": {
+        "$value": "#555832",
+        "$type": "color"
+      },
+      "blackish-olive": {
+        "$value": "#42533e",
+        "$type": "color"
+      },
+      "deep-slate-olive": {
+        "$value": "#253122",
+        "$type": "color"
+      },
+      "nile-blue": {
+        "$value": "#bce4e5",
+        "$type": "color"
+      },
+      "pale-king-s-blue": {
+        "$value": "#a7d4e4",
+        "$type": "color"
+      },
+      "light-glaucous-blue": {
+        "$value": "#a5c8d1",
+        "$type": "color"
+      },
+      "salvia-blue": {
+        "$value": "#97acc8",
+        "$type": "color"
+      },
+      "cobalt-green": {
+        "$value": "#96d1aa",
+        "$type": "color"
+      },
+      "calamine-blue": {
+        "$value": "#78cdd0",
+        "$type": "color"
+      },
+      "venice-green": {
+        "$value": "#62c6bf",
+        "$type": "color"
+      },
+      "cerulian-blue": {
+        "$value": "#0093a5",
+        "$type": "color"
+      },
+      "peacock-blue": {
+        "$value": "#00939b",
+        "$type": "color"
+      },
+      "green-blue": {
+        "$value": "#099197",
+        "$type": "color"
+      },
+      "olympic-blue": {
+        "$value": "#5a82b3",
+        "$type": "color"
+      },
+      "blue": {
+        "$value": "#006eb8",
+        "$type": "color"
+      },
+      "antwarp-blue": {
+        "$value": "#007190",
+        "$type": "color"
+      },
+      "helvetia-blue": {
+        "$value": "#005b8d",
+        "$type": "color"
+      },
+      "dark-medici-blue": {
+        "$value": "#547076",
+        "$type": "color"
+      },
+      "dusky-green": {
+        "$value": "#004f46",
+        "$type": "color"
+      },
+      "deep-lyons-blue": {
+        "$value": "#1c4286",
+        "$type": "color"
+      },
+      "violet-blue": {
+        "$value": "#40456a",
+        "$type": "color"
+      },
+      "vandar-poel-s-blue": {
+        "$value": "#064f6e",
+        "$type": "color"
+      },
+      "dark-tyrian-blue": {
+        "$value": "#12354e",
+        "$type": "color"
+      },
+      "dull-violet-black": {
+        "$value": "#1e0e3f",
+        "$type": "color"
+      },
+      "deep-indigo": {
+        "$value": "#051230",
+        "$type": "color"
+      },
+      "deep-slate-green": {
+        "$value": "#112f2c",
+        "$type": "color"
+      },
+      "grayish-lavender-a": {
+        "$value": "#b5b1d8",
+        "$type": "color"
+      },
+      "grayish-lavender-b": {
+        "$value": "#c0a9b3",
+        "$type": "color"
+      },
+      "laelia-pink": {
+        "$value": "#ca92a8",
+        "$type": "color"
+      },
+      "lilac": {
+        "$value": "#b984af",
+        "$type": "color"
+      },
+      "eupatorium-purple": {
+        "$value": "#bf5892",
+        "$type": "color"
+      },
+      "light-mauve": {
+        "$value": "#9a72aa",
+        "$type": "color"
+      },
+      "aconite-violet": {
+        "$value": "#a36aa5",
+        "$type": "color"
+      },
+      "dull-blue-violet": {
+        "$value": "#80719e",
+        "$type": "color"
+      },
+      "dark-soft-violet": {
+        "$value": "#66629c",
+        "$type": "color"
+      },
+      "blue-violet": {
+        "$value": "#6450a1",
+        "$type": "color"
+      },
+      "purple-drab": {
+        "$value": "#84565b",
+        "$type": "color"
+      },
+      "deep-violet-plumbeous": {
+        "$value": "#70727c",
+        "$type": "color"
+      },
+      "veronia-purple": {
+        "$value": "#8c4c62",
+        "$type": "color"
+      },
+      "dark-slate-purple": {
+        "$value": "#704357",
+        "$type": "color"
+      },
+      "taupe-brown": {
+        "$value": "#7a4456",
+        "$type": "color"
+      },
+      "violet-carmine": {
+        "$value": "#713b4c",
+        "$type": "color"
+      },
+      "violet": {
+        "$value": "#4f4086",
+        "$type": "color"
+      },
+      "red-violet": {
+        "$value": "#59256a",
+        "$type": "color"
+      },
+      "cotinga-purple": {
+        "$value": "#501345",
+        "$type": "color"
+      },
+      "dusky-madder-violet": {
+        "$value": "#4e1d4c",
+        "$type": "color"
+      },
+      "white": {
+        "$value": "#ffffff",
+        "$type": "color"
+      },
+      "neutral-gray": {
+        "$value": "#b6bfc1",
+        "$type": "color"
+      },
+      "mineral-gray": {
+        "$value": "#a2b0ad",
+        "$type": "color"
+      },
+      "warm-gray": {
+        "$value": "#a1a39a",
+        "$type": "color"
+      },
+      "slate-color": {
+        "$value": "#34454c",
+        "$type": "color"
+      },
+      "black": {
+        "$value": "#111314",
+        "$type": "color"
+      }
+    }
+  }
+}

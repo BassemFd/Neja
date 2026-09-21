@@ -14,7 +14,16 @@ export function SiteFooter() {
         </p>
         <p>Built by a four-stage Claude Code agent pipeline. See /pipeline.</p>
         <p className="mt-2 text-[var(--shell-paper)]">
-          Created by Bassem Fayed with <span aria-hidden="true">♥</span>
+          Created by{' '}
+          <a
+            href="https://career-log.bassem-fayed.workers.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-[var(--shell-seal)] underline-offset-2"
+          >
+            Bassem Fayed
+          </a>{' '}
+          with <span aria-hidden="true">♥</span>
           <span className="sr-only">love</span>
         </p>
       </div>

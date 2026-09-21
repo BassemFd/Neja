@@ -11,7 +11,10 @@ import { cn } from '../lib/cn'
  * code change.
  */
 export const cardVariants = cva(
-  'rounded-[var(--radius-md)] text-left font-sans transition-colors ' +
+  // `block` is load-bearing: an interactive Card renders as <a>, which is
+  // display:inline by default — without this, padding/width/radius/background
+  // fragment across the text's inline line-boxes instead of forming one box.
+  'block rounded-[var(--radius-md)] text-left font-sans transition-colors ' +
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ' +
     'focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-[var(--color-background)]',
   {

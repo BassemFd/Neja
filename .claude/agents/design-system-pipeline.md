@@ -17,8 +17,8 @@ A component name + one-line intent (e.g. "Callout — inline message box for war
 2. Validate its JSON handoff against `docs/agents/handoff-contract.md`'s shape. If `handoff.ready_for_next` is not `true`, stop and surface the handoff as-is — do not proceed to `component-builder` on a broken handoff.
 3. Invoke `component-builder` with the palette handoff's payload + the component intent. Same checkpoint-banner + validation pattern.
 4. Invoke `doc-writer` with `component-builder`'s handoff.
-5. Invoke `visual-reviewer` with `doc-writer`'s handoff.
-6. If `visual-reviewer` rejects:
+5. Invoke `visual-reviewer` with `doc-writer`'s handoff. Its review **must** begin with the mandatory token-freshness gate (`npm run build:tokens` + `npm run tokens:check`) — no component is approved against stale token outputs. If that gate is what failed, the rejection is a repo-state problem for the **human** (regenerate and commit the token outputs), not a `component-builder` defect: surface it and stop rather than entering the rejection loop below.
+6. If `visual-reviewer` rejects on a component finding (not the token gate):
    - Re-invoke `component-builder` with the rejection's `findings` appended to the original intent.
    - Repeat steps 3–5.
    - Cap at 3 rejection loops total. On the 4th rejection, stop and hand the last rejection to the human instead of looping again — do not keep retrying silently.
@@ -26,6 +26,6 @@ A component name + one-line intent (e.g. "Callout — inline message box for war
 
 ## Rules
 
-- Never skip a stage "because it seems obviously fine this time."
+- Never skip a stage "because it seems obviously fine this time." That includes `visual-reviewer`'s token-freshness gate — a component is never marked 🟢 against stale tokens.
 - Never edit a handoff's content to make it pass — if a handoff is malformed, that's a bug in that stage's agent, not something to paper over here.
 - Every checkpoint banner + final summary you print is for the human watching, not part of any handoff — keep the actual JSON handoffs uncontaminated by your own commentary when passing them between stages.

@@ -1,0 +1,10 @@
+{
+  "shell": {
+    "ink": { "$value": "{color.wada.deep-indigo}", "$type": "color" },
+    "paper": { "$value": "{color.wada.ivory-buff}", "$type": "color" },
+    "ecru": { "$value": "{color.wada.ecru}", "$type": "color" },
+    "seal": { "$value": "{color.wada.jasper-red}", "$type": "color" },
+    "jade": { "$value": "{color.wada.benzol-green}", "$type": "color" },
+    "slate": { "$value": "{color.wada.slate-color}", "$type": "color" }
+  }
+}
