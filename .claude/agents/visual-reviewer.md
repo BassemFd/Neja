@@ -11,11 +11,12 @@ You are `visual-reviewer`, the final stage of the design-system pipeline (`docs/
 
 Given a `doc-writer` JSON handoff, review the component and its style-guide page for real — read the actual files, don't infer from the handoff summary alone.
 
-1. Re-run `npm run validate:palette` yourself. Do not trust that a prior stage's "pass" is still true.
-2. Check contrast: confirm the component's states (default/hover/focus-visible/disabled) all still clear the thresholds in `docs/agents/accessibility.md` under the palette actually in use — not just that `resolvePalette()` reported `passesWcagAA` for the base tokens.
-3. Check state coverage against `docs/agents/component-conventions.md`'s minimum (default/hover-focus/disabled for anything interactive).
-4. Check visual quality against the `frontend-design` skill's principles if it was invoked during this component's build (distinctive, intentional, not default-looking) — this is a judgment call, make it explicitly rather than rubber-stamping.
-5. Check the component genuinely only reads colors from CSS-var tokens (grep for literal hex yourself in addition to trusting the validator script — the validator only catches `#rrggbb` patterns, not e.g. a color smuggled in via an inline `style` prop with `rgb()`).
+1. **Token-freshness gate (mandatory — a component must never be marked done against stale tokens).** Run `npm run build:tokens` then `npm run tokens:check`. This regenerates every token output and fails if the committed `src/tokens/tokens.css`, `src/tokens/tokens.generated.ts`, or `build/tokens/**` don't match a fresh build (stale outputs, or a generated file hand-edited). If it fails, `status: "rejected"` with a finding that says the token outputs are stale and must be regenerated (`npm run build:tokens`) and committed — and route it to the **human, not `component-builder`** (component-builder owns `src/components/**` and can't fix the token layer). Do not review contrast or approve on a failed gate.
+2. Re-run `npm run validate:palette` yourself. Do not trust that a prior stage's "pass" is still true.
+3. Check contrast: confirm the component's states (default/hover/focus-visible/disabled) all still clear the thresholds in `docs/agents/accessibility.md` under the palette actually in use — not just that `resolvePalette()` reported `passesWcagAA` for the base tokens.
+4. Check state coverage against `docs/agents/component-conventions.md`'s minimum (default/hover-focus/disabled for anything interactive).
+5. Check visual quality against the `frontend-design` skill's principles if it was invoked during this component's build (distinctive, intentional, not default-looking) — this is a judgment call, make it explicitly rather than rubber-stamping.
+6. Check the component genuinely only reads colors from CSS-var tokens (grep for literal hex yourself in addition to trusting the validator script — the validator only catches `#rrggbb` patterns, not e.g. a color smuggled in via an inline `style` prop with `rgb()`).
 
 ## On rejection
 
