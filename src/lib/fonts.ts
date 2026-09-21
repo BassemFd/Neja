@@ -1,6 +1,8 @@
 export interface FontTheme {
   id: string
   name: string
+  /** Terse label for the compact dock pill (the full name is too long to sit in the bar). */
+  short: string
   mood: string
   display: string
   sans: string
@@ -20,6 +22,7 @@ export const FONT_THEMES: FontTheme[] = [
   {
     id: 'ink-and-brush',
     name: 'Ink & Brush',
+    short: 'Ink',
     mood: 'The site default — a Japanese-designed mincho serif with brush-cut terminals, paired with a matching gothic sans.',
     display: "'Zen Old Mincho', serif",
     sans: "'Zen Kaku Gothic New', sans-serif",
@@ -28,6 +31,7 @@ export const FONT_THEMES: FontTheme[] = [
   {
     id: 'spec-sheet',
     name: 'Spec Sheet',
+    short: 'Spec',
     mood: 'Geometric, technical headlines over a plain engineering sans — the agent-harness half of this project\'s identity.',
     display: "'Space Grotesk', sans-serif",
     sans: "'IBM Plex Sans', sans-serif",
@@ -36,6 +40,7 @@ export const FONT_THEMES: FontTheme[] = [
   {
     id: 'broadside',
     name: 'Broadside',
+    short: 'Broadside',
     mood: 'Tall, condensed poster display over a plain, sturdy body face — a printed-notice, signage mood.',
     display: "'Big Shoulders Display', sans-serif",
     sans: "'Public Sans', sans-serif",
@@ -44,6 +49,7 @@ export const FONT_THEMES: FontTheme[] = [
   {
     id: 'bibliotheque',
     name: 'Bibliothèque',
+    short: 'Biblio',
     mood: 'A warm, moderate-contrast old-style serif for a literary, printed-book feel.',
     display: "'Petrona', serif",
     sans: "'Work Sans', sans-serif",

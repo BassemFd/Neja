@@ -16,7 +16,7 @@ import { PipelinePage } from './pages/PipelinePage'
 
 function Shell() {
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--shell-ink)] pb-14">
+    <div className="flex min-h-screen flex-col overflow-x-clip bg-[var(--shell-ink)] pb-14 pl-12 sm:pl-0">
       <SiteHeader />
       <main className="flex-1">
         <Outlet />
