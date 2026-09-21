@@ -4,7 +4,9 @@ A prompt instruction is advice; a script is a gate. This repo tries to put anyth
 
 ## Enforced in code (can't be talked around)
 
-- **Palette rule** — `scripts/validate-palette.ts`, wired as a pre-commit hook. Fails the commit if any hex literal in `src/tokens/**` or `src/components/**` isn't one of Wada's 159 colors. See `palette-rule.md`.
+- **Palette rule** — `scripts/validate-palette.ts`, wired as a pre-commit hook. Two checks: (1) any hex in `tokens/**`, `src/tokens/**`, `src/components/**` or the generated `build/tokens/**` must be one of Wada's 159 colors (Android's 8-digit ARGB is normalized first); (2) semantic token files (`tokens/semantic/**`) must contain **no** raw hex — a semantic token must reference a primitive (`{color.wada.*}`). See `palette-rule.md`.
+- **Token freshness** — `npm run tokens:check` regenerates from `tokens/**` and fails if the committed generated outputs (`src/tokens/tokens.css`, `src/tokens/tokens.generated.ts`, `build/tokens/**`) differ. Runs in CI; catches a hand-edit or a stale commit of a generated file.
+- **Build-time/runtime drift** — a Vitest test (`tokens/tokens.test.ts`) asserts the generated `--color-*` equal `resolvePalette(155)`, so the baked default canvas can't diverge from the live switcher's algorithm.
 - **Commit message size** — a pre-commit hook rejecting commit messages over a fixed line/byte budget. This exists because agentic commits have a real failure mode of pasting entire test/build logs into the commit message body; the fix is a hard cap, not a reminder in a prompt.
 
 Both hooks live in `.claude/settings.json` under `hooks.PreToolUse` / the commit-specific hook, and both run a real command with a real exit code — a hook that just prints a warning and continues is not a guardrail, it's a suggestion with extra steps.

@@ -23,7 +23,11 @@ Each agent's frontmatter pins a specific model, chosen by how much judgment its 
 
 ## Guardrails live in code, not just in prompts
 
-`scripts/validate-palette.ts` scans `src/tokens/**` and `src/components/**` for hex literals and fails if any isn't one of Wada's 159 colors. It's wired as a pre-commit hook in `.claude/settings.json`. An agent forgetting the palette rule, or a human pasting a hex from a color picker, gets blocked by the script — not by hoping the instructions were followed. See `docs/agents/guardrails.md`.
+`scripts/validate-palette.ts` scans the token sources (`tokens/**`), the generated outputs (`src/tokens/**`, `build/tokens/**`) and `src/components/**` for hex literals and fails if any isn't one of Wada's 159 colors — and fails if a semantic token inlines a hex instead of referencing a primitive. It's wired as a pre-commit hook in `.claude/settings.json`. An agent forgetting the palette rule, or a human pasting a hex from a color picker, gets blocked by the script — not by hoping the instructions were followed. See `docs/agents/guardrails.md`.
+
+## Tokens are a build step
+
+Tokens are built by **Style Dictionary** from DTCG sources in `tokens/` into web (CSS), TypeScript, iOS and Android outputs — `npm run build:tokens`, run automatically before `dev` and `build`. `src/tokens/tokens.css` is generated; don't hand-edit it. Live re-theming still happens at runtime via `resolvePalette()`. See `docs/adr/0001-style-dictionary.md`.
 
 ## Conventions
 

@@ -40,6 +40,23 @@ Five components, each with a live variant matrix, a props table, and a **Preview
 
 ![Button doc page with live variant matrix](docs/screenshots/button.png)
 
+## The tokens
+
+Tokens are a single source of truth in [DTCG](https://tr.designtokens.org/) JSON under [`tokens/`](tokens/), built by **[Style Dictionary](https://styledictionary.com/)** into four platforms:
+
+```text
+tokens/**  →  web (CSS)  ·  TypeScript  ·  iOS (Swift)  ·  Android (XML)
+```
+
+The 159 Wada primitives are generated from the dataset; semantic tokens *reference* them (`{color.wada.jasper-red}`), never an inline hex. The default canvas is generated from the same `resolvePalette(155)` the live switcher uses — so the baked default and the runtime algorithm can't drift, and a test proves it. Style Dictionary owns the **static** tokens and the **default** theme; **live re-theming stays at runtime** (`resolvePalette()` / `PaletteProvider`). iOS/Android outputs are a parity demo, not consumed by the app.
+
+```bash
+npm run build:tokens   # regenerate all four platforms (runs before dev/build)
+npm run tokens:check    # fail if committed outputs are stale
+```
+
+Full rationale — build-time vs runtime, alternatives weighed — in [`docs/adr/0001-style-dictionary.md`](docs/adr/0001-style-dictionary.md).
+
 ## The harness
 
 ```text
@@ -59,10 +76,12 @@ This pipeline is not a slide — it actually built every component in this repo,
 
 ```bash
 npm install
-npm run dev             # dev server
-npm run build            # production build
+npm run dev             # dev server (builds tokens first)
+npm run build            # production build (builds tokens first)
+npm run build:tokens     # regenerate design tokens (all four platforms)
 npm run typecheck        # tsc --noEmit
-npm run validate:palette # the guardrail, standalone
+npm run validate:palette # the palette guardrail, standalone
+npm test                 # token drift test
 ```
 
 ## Stack
