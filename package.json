@@ -4,11 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "npm run build:tokens && vite",
+    "build": "npm run build:tokens && tsc -b && vite build",
+    "build:tokens": "tsx scripts/gen-token-sources.ts && node scripts/build-tokens.mjs",
+    "tokens:check": "npm run build:tokens && git diff --exit-code -- src/tokens/tokens.css src/tokens/tokens.generated.ts build/tokens",
     "lint": "oxlint",
     "typecheck": "tsc -b --noEmit",
     "validate:palette": "tsx scripts/validate-palette.ts",
+    "test": "vitest run",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -28,8 +31,10 @@
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
     "oxlint": "^1.79.0",
+    "style-dictionary": "^5.5.5",
     "tsx": "^4.23.13",
     "typescript": "~6.0.2",
-    "vite": "^8.2.2"
+    "vite": "^8.2.2",
+    "vitest": "^5.0.1"
   }
 }
