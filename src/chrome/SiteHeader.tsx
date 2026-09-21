@@ -10,11 +10,11 @@ const links = [
 export function SiteHeader() {
   return (
     <header className="border-b border-[var(--shell-ecru)]/25 bg-[var(--shell-ink)]">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <NavLink to="/" className="font-display text-xl tracking-wide text-[var(--shell-paper)]">
+      <div className="mx-auto flex max-w-6xl flex-col-reverse items-start gap-2 px-6 py-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6 sm:gap-y-2">
+        <NavLink to="/" className="min-w-0 font-display text-xl tracking-wide text-[var(--shell-paper)]">
           Neja <span className="text-[var(--shell-seal)]">/</span> a dictionary of color combinations
         </NavLink>
-        <nav className="flex gap-6 font-mono text-xs uppercase tracking-widest">
+        <nav className="flex shrink-0 gap-6 font-mono text-xs uppercase tracking-widest">
           {links.map((l) => (
             <NavLink
               key={l.to}
