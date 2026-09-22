@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { usePalette } from '../lib/PaletteProvider'
 import { useFontTheme } from '../lib/FontProvider'
 import { resolvePalette } from '../lib/palette'
@@ -8,30 +9,42 @@ import { cn } from '../lib/cn'
  * The two persistent theme switchers, mounted once in App's Shell and visible
  * on every page. Both read the *active* --color-* tokens for their own chrome
  * (background/border/ring), not the fixed --shell-* brand colors, so they
- * re-theme the instant a new combination is picked. Each palette pip previews
- * its OWN candidate combination's colors, which is what makes picking one
- * meaningful.
+ * re-theme the instant a new combination is picked.
  *
- * Layout is responsive because the desktop bottom bar was already fine — only
- * mobile was cramped:
- *  - Desktop (sm+): one bottom bar — palette scrolls on the left, type chips
- *    pinned on the right. The left rail is hidden.
- *  - Mobile (<sm): palette moves to a vertical rail pinned LEFT that scrolls
- *    on its own, so it stops competing with type for the narrow bottom strip;
- *    the bottom bar then carries type chips only.
+ *  - Desktop (sm+): unchanged — one bottom bar, palette scrolls on the left,
+ *    type chips pinned on the right.
+ *  - Mobile (<sm): a single soft floating pill in the thumb zone shows the
+ *    *current* palette + type and opens a rounded bottom sheet with the full,
+ *    labeled lists. The page re-themes live behind the translucent sheet, so
+ *    the magic stays visible while the long list stops competing with content.
  */
 export function PaletteDock() {
-  const { comboId, accessibleCombinations, setComboId } = usePalette()
+  const { comboId, palette, accessibleCombinations, setComboId } = usePalette()
   const { fontTheme, setFontThemeId } = useFontTheme()
+  const [sheetOpen, setSheetOpen] = useState(false)
+
+  // While the sheet is open: close on Escape, and lock body scroll so the
+  // page behind doesn't scroll under it.
+  useEffect(() => {
+    if (!sheetOpen) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSheetOpen(false)
+    window.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [sheetOpen])
 
   const chrome = {
     background: 'color-mix(in srgb, var(--color-background) 95%, transparent)',
     borderColor: 'var(--color-border)',
   }
 
-  // Same pip elements reused in both the mobile left rail and the desktop
-  // bottom bar — only their container's flex direction differs.
-  const pips = accessibleCombinations.map((id) => {
+  // A single palette pip — reused in the desktop bar and the mobile sheet.
+  // `size` lets the sheet render larger, thumb-friendly targets.
+  const pip = (id: number, size: 'sm' | 'lg' = 'sm') => {
     const isActive = id === comboId
     const combo = resolvePalette(id)
     return (
@@ -43,7 +56,8 @@ export function PaletteDock() {
         aria-label={`Wada combination No. ${id}`}
         onClick={() => setComboId(id)}
         className={cn(
-          'flex h-7 w-7 shrink-0 overflow-hidden rounded-full border-2 transition-transform focus-visible:outline-2 focus-visible:outline-offset-2',
+          'flex shrink-0 overflow-hidden rounded-full border-2 transition-transform focus-visible:outline-2 focus-visible:outline-offset-2',
+          size === 'lg' ? 'h-10 w-10' : 'h-7 w-7',
           isActive ? 'scale-110' : 'border-transparent hover:scale-105',
         )}
         style={{
@@ -57,9 +71,9 @@ export function PaletteDock() {
         <span className="flex-1" style={{ background: combo.tokens.accent }} />
       </button>
     )
-  })
+  }
 
-  const typeChips = FONT_THEMES.map((theme) => {
+  const typeChip = (theme: (typeof FONT_THEMES)[number], full = false) => {
     const isActive = theme.id === fontTheme.id
     return (
       <button
@@ -69,7 +83,10 @@ export function PaletteDock() {
         aria-checked={isActive}
         onClick={() => setFontThemeId(theme.id)}
         title={theme.name}
-        className="shrink-0 whitespace-nowrap rounded-full border px-3 py-1 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+        className={cn(
+          'shrink-0 whitespace-nowrap rounded-full border px-3 py-1 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
+          full && 'flex-1 py-2 text-sm',
+        )}
         style={{
           fontFamily: theme.display,
           color: 'var(--color-text)',
@@ -80,59 +97,115 @@ export function PaletteDock() {
           outlineColor: 'var(--color-accent)',
         }}
       >
-        {theme.short}
+        {full ? theme.name : theme.short}
       </button>
     )
-  })
+  }
 
   return (
     <>
-      {/* MOBILE ONLY: full-height left palette column, bottom-to-top, scrolls
-          on its own. Square (no rounded corners); the Shell pads its content
-          left by the same width (see App.tsx) so this pushes everything right
-          instead of overlaying it. */}
-      <div
-        role="radiogroup"
-        aria-label="Palette"
-        className="fixed inset-y-0 left-0 z-40 flex w-12 flex-col items-center gap-2 overflow-y-auto border-r py-2 backdrop-blur transition-colors sm:hidden"
+      {/* ----------------------------- MOBILE ----------------------------- */}
+      {/* One floating pill in the thumb zone. Shows current palette + type;
+          tapping it opens the sheet below. */}
+      <button
+        type="button"
+        onClick={() => setSheetOpen(true)}
+        aria-haspopup="dialog"
+        aria-expanded={sheetOpen}
+        className="fixed inset-x-4 bottom-4 z-40 flex items-center gap-3 rounded-full border px-4 py-2.5 shadow-lg backdrop-blur transition-colors sm:hidden"
         style={chrome}
       >
-        {pips}
-      </div>
+        {/* current palette swatch */}
+        <span
+          className="flex h-6 w-6 shrink-0 overflow-hidden rounded-full border"
+          style={{ borderColor: 'var(--color-border)' }}
+        >
+          <span className="flex-1" style={{ background: palette.tokens.background }} />
+          <span className="flex-1" style={{ background: palette.tokens.primary }} />
+          <span className="flex-1" style={{ background: palette.tokens.accent }} />
+        </span>
+        <span className="font-mono text-xs" style={{ color: 'var(--color-text)' }}>
+          No. {comboId}
+        </span>
+        <span className="h-4 w-px shrink-0" style={{ background: 'var(--color-border)' }} aria-hidden />
+        <span className="truncate text-sm" style={{ fontFamily: fontTheme.display, color: 'var(--color-text)' }}>
+          {fontTheme.name}
+        </span>
+        <span className="ml-auto font-mono text-[10px] uppercase tracking-widest opacity-60" style={{ color: 'var(--color-text)' }}>
+          Theme
+        </span>
+      </button>
 
-      {/* Bottom bar. Desktop: palette (scroll) + type. Mobile: type only,
-          starting after the left column (left-12) so they don't overlap. */}
+      {/* Backdrop + bottom sheet. Only rendered when open. */}
+      {sheetOpen && (
+        <div className="fixed inset-0 z-50 sm:hidden" role="dialog" aria-modal="true" aria-label="Theme">
+          <button
+            type="button"
+            aria-label="Close"
+            onClick={() => setSheetOpen(false)}
+            className="absolute inset-0 bg-[var(--shell-ink)]/50 backdrop-blur-[2px] motion-safe:animate-[fadeIn_150ms_ease-out]"
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 max-h-[80vh] overflow-y-auto overscroll-contain rounded-t-[1.75rem] border-t px-5 pb-8 pt-3 shadow-2xl motion-safe:animate-[sheetUp_220ms_cubic-bezier(0.22,1,0.36,1)]"
+            style={{
+              background: 'var(--color-background)',
+              borderColor: 'var(--color-border)',
+            }}
+          >
+            {/* grab handle */}
+            <div
+              className="mx-auto mb-5 h-1 w-10 rounded-full"
+              style={{ background: 'var(--color-border)' }}
+              aria-hidden
+            />
+
+            <div className="mb-2 flex items-baseline justify-between">
+              <h2 className="text-base" style={{ fontFamily: fontTheme.display, color: 'var(--color-text)' }}>
+                Palette
+              </h2>
+              <span className="font-mono text-[10px]" style={{ color: 'var(--color-text)', opacity: 0.6 }}>
+                No. {comboId}
+              </span>
+            </div>
+            <div role="radiogroup" aria-label="Palette" className="mb-6 flex flex-wrap gap-3">
+              {accessibleCombinations.map((id) => pip(id, 'lg'))}
+            </div>
+
+            <h2 className="mb-2 text-base" style={{ fontFamily: fontTheme.display, color: 'var(--color-text)' }}>
+              Type
+            </h2>
+            <div role="radiogroup" aria-label="Type pairing" className="flex flex-wrap gap-2">
+              {FONT_THEMES.map((theme) => typeChip(theme, true))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ----------------------------- DESKTOP ---------------------------- */}
+      {/* Bottom bar: palette (scroll) + type. Unchanged from before. */}
       <div
-        className="fixed bottom-0 left-12 right-0 z-40 border-t backdrop-blur transition-colors sm:left-0"
+        className="fixed bottom-0 left-0 right-0 z-40 hidden border-t backdrop-blur transition-colors sm:block"
         style={chrome}
       >
         <div className="flex items-center gap-3 px-4 py-2">
-          {/* Palette region — desktop only (mobile uses the left rail). */}
-          <div className="hidden min-w-0 flex-1 items-center gap-2 overflow-x-auto sm:flex">
+          <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto">
             <div role="radiogroup" aria-label="Palette" className="flex items-center gap-2">
-              {pips}
+              {accessibleCombinations.map((id) => pip(id))}
             </div>
           </div>
+          <span className="h-5 w-px shrink-0" style={{ background: 'var(--color-border)' }} aria-hidden="true" />
           <span
-            className="hidden h-5 w-px shrink-0 sm:block"
-            style={{ background: 'var(--color-border)' }}
-            aria-hidden="true"
-          />
-
-          <span
-            className="hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] sm:inline-block"
+            className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em]"
             style={{ color: 'var(--color-text)' }}
           >
             Type
           </span>
-          {/* Mobile: chips fill the bar, spread with justify-between so the row
-              reads balanced. Desktop: pinned right next to the palette. */}
           <div
             role="radiogroup"
             aria-label="Type pairing"
-            className="flex flex-1 items-center justify-between gap-1.5 sm:flex-none sm:shrink-0 sm:justify-start sm:overflow-x-auto"
+            className="flex shrink-0 items-center gap-1.5 overflow-x-auto"
           >
-            {typeChips}
+            {FONT_THEMES.map((theme) => typeChip(theme))}
           </div>
         </div>
       </div>
