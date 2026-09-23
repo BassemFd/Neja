@@ -21,13 +21,15 @@ import { cn } from '../lib/cn'
 export function PaletteDock() {
   const { comboId, palette, accessibleCombinations, setComboId } = usePalette()
   const { fontTheme, setFontThemeId } = useFontTheme()
-  const [sheetOpen, setSheetOpen] = useState(false)
+  // Which drawer is open on mobile — palette and type are separate sheets,
+  // opened by tapping their own half of the pill. null = closed.
+  const [sheet, setSheet] = useState<null | 'palette' | 'type'>(null)
 
-  // While the sheet is open: close on Escape, and lock body scroll so the
+  // While a sheet is open: close on Escape, and lock body scroll so the
   // page behind doesn't scroll under it.
   useEffect(() => {
-    if (!sheetOpen) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSheetOpen(false)
+    if (!sheet) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSheet(null)
     window.addEventListener('keydown', onKey)
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
@@ -35,7 +37,7 @@ export function PaletteDock() {
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
     }
-  }, [sheetOpen])
+  }, [sheet])
 
   const chrome = {
     background: 'color-mix(in srgb, var(--color-background) 95%, transparent)',
@@ -85,7 +87,7 @@ export function PaletteDock() {
         title={theme.name}
         className={cn(
           'shrink-0 whitespace-nowrap rounded-full border px-3 py-1 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
-          full && 'flex-1 py-2 text-sm',
+          full && 'w-full py-2.5 text-sm',
         )}
         style={{
           fontFamily: theme.display,
@@ -105,44 +107,69 @@ export function PaletteDock() {
   return (
     <>
       {/* ----------------------------- MOBILE ----------------------------- */}
-      {/* One floating pill in the thumb zone. Shows current palette + type;
-          tapping it opens the sheet below. */}
-      <button
-        type="button"
-        onClick={() => setSheetOpen(true)}
-        aria-haspopup="dialog"
-        aria-expanded={sheetOpen}
-        className="fixed inset-x-4 bottom-4 z-40 flex items-center gap-3 rounded-full border px-4 py-2.5 shadow-lg backdrop-blur transition-colors sm:hidden"
+      {/* One floating pill in the thumb zone, split into two tappable zones:
+          the palette half opens the colours drawer, the type half opens the
+          fonts drawer. Each shows its own current selection. */}
+      <div
+        className="fixed inset-x-4 bottom-4 z-40 flex items-stretch rounded-full border shadow-lg backdrop-blur transition-colors sm:hidden"
         style={chrome}
       >
-        {/* current palette swatch */}
-        <span
-          className="flex h-6 w-6 shrink-0 overflow-hidden rounded-full border"
-          style={{ borderColor: 'var(--color-border)' }}
+        <button
+          type="button"
+          onClick={() => setSheet('palette')}
+          aria-haspopup="dialog"
+          aria-expanded={sheet === 'palette'}
+          aria-label="Choose a colour combination"
+          className="flex flex-1 items-center gap-2.5 rounded-l-full py-2.5 pl-4 pr-3 focus-visible:outline-2 focus-visible:-outline-offset-2"
+          style={{ outlineColor: 'var(--color-accent)' }}
         >
-          <span className="flex-1" style={{ background: palette.tokens.background }} />
-          <span className="flex-1" style={{ background: palette.tokens.primary }} />
-          <span className="flex-1" style={{ background: palette.tokens.accent }} />
-        </span>
-        <span className="font-mono text-xs" style={{ color: 'var(--color-text)' }}>
-          No. {comboId}
-        </span>
-        <span className="h-4 w-px shrink-0" style={{ background: 'var(--color-border)' }} aria-hidden />
-        <span className="truncate text-sm" style={{ fontFamily: fontTheme.display, color: 'var(--color-text)' }}>
-          {fontTheme.name}
-        </span>
-        <span className="ml-auto font-mono text-[10px] uppercase tracking-widest opacity-60" style={{ color: 'var(--color-text)' }}>
-          Theme
-        </span>
-      </button>
+          <span
+            className="flex h-6 w-6 shrink-0 overflow-hidden rounded-full border"
+            style={{ borderColor: 'var(--color-border)' }}
+          >
+            <span className="flex-1" style={{ background: palette.tokens.background }} />
+            <span className="flex-1" style={{ background: palette.tokens.primary }} />
+            <span className="flex-1" style={{ background: palette.tokens.accent }} />
+          </span>
+          <span className="font-mono text-xs" style={{ color: 'var(--color-text)' }}>
+            No. {comboId}
+          </span>
+        </button>
+        <span className="my-2 w-px shrink-0" style={{ background: 'var(--color-border)' }} aria-hidden />
+        <button
+          type="button"
+          onClick={() => setSheet('type')}
+          aria-haspopup="dialog"
+          aria-expanded={sheet === 'type'}
+          aria-label="Choose a type pairing"
+          className="flex flex-1 items-center gap-2 rounded-r-full py-2.5 pl-3 pr-4 focus-visible:outline-2 focus-visible:-outline-offset-2"
+          style={{ outlineColor: 'var(--color-accent)' }}
+        >
+          <span className="truncate text-sm" style={{ fontFamily: fontTheme.display, color: 'var(--color-text)' }}>
+            {fontTheme.name}
+          </span>
+          <span
+            className="ml-auto font-mono text-[10px] uppercase tracking-widest opacity-60"
+            style={{ color: 'var(--color-text)' }}
+          >
+            Aa
+          </span>
+        </button>
+      </div>
 
-      {/* Backdrop + bottom sheet. Only rendered when open. */}
-      {sheetOpen && (
-        <div className="fixed inset-0 z-50 sm:hidden" role="dialog" aria-modal="true" aria-label="Theme">
+      {/* Backdrop + bottom sheet. One sheet, content switches on which drawer
+          was opened. */}
+      {sheet && (
+        <div
+          className="fixed inset-0 z-50 sm:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label={sheet === 'palette' ? 'Colour combination' : 'Type pairing'}
+        >
           <button
             type="button"
             aria-label="Close"
-            onClick={() => setSheetOpen(false)}
+            onClick={() => setSheet(null)}
             className="absolute inset-0 bg-[var(--shell-ink)]/50 backdrop-blur-[2px] motion-safe:animate-[fadeIn_150ms_ease-out]"
           />
           <div
@@ -159,24 +186,34 @@ export function PaletteDock() {
               aria-hidden
             />
 
-            <div className="mb-2 flex items-baseline justify-between">
-              <h2 className="text-base" style={{ fontFamily: fontTheme.display, color: 'var(--color-text)' }}>
-                Palette
-              </h2>
-              <span className="font-mono text-[10px]" style={{ color: 'var(--color-text)', opacity: 0.6 }}>
-                No. {comboId}
-              </span>
-            </div>
-            <div role="radiogroup" aria-label="Palette" className="mb-6 flex flex-wrap gap-3">
-              {accessibleCombinations.map((id) => pip(id, 'lg'))}
-            </div>
-
-            <h2 className="mb-2 text-base" style={{ fontFamily: fontTheme.display, color: 'var(--color-text)' }}>
-              Type
-            </h2>
-            <div role="radiogroup" aria-label="Type pairing" className="flex flex-wrap gap-2">
-              {FONT_THEMES.map((theme) => typeChip(theme, true))}
-            </div>
+            {sheet === 'palette' ? (
+              <>
+                <div className="mb-2 flex items-baseline justify-between">
+                  <h2 className="text-base" style={{ fontFamily: fontTheme.display, color: 'var(--color-text)' }}>
+                    Palette
+                  </h2>
+                  <span className="font-mono text-[10px]" style={{ color: 'var(--color-text)', opacity: 0.6 }}>
+                    No. {comboId}
+                  </span>
+                </div>
+                <div
+                  role="radiogroup"
+                  aria-label="Palette"
+                  className="grid grid-cols-[repeat(auto-fill,minmax(2.75rem,1fr))] justify-items-center gap-y-3"
+                >
+                  {accessibleCombinations.map((id) => pip(id, 'lg'))}
+                </div>
+              </>
+            ) : (
+              <>
+                <h2 className="mb-3 text-base" style={{ fontFamily: fontTheme.display, color: 'var(--color-text)' }}>
+                  Type
+                </h2>
+                <div role="radiogroup" aria-label="Type pairing" className="grid grid-cols-2 gap-2">
+                  {FONT_THEMES.map((theme) => typeChip(theme, true))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
