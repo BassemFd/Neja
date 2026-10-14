@@ -16,7 +16,7 @@ export function SiteFooter() {
         <p className="mt-2 text-[var(--shell-paper)]">
           Created by{' '}
           <a
-            href="https://career-log.bassem-fayed.workers.dev/"
+            href="https://bassemfayed.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="underline decoration-[var(--shell-seal)] underline-offset-2"
