@@ -1,7 +1,7 @@
 import { usePalette } from '../lib/PaletteProvider'
 import { SwatchShelf } from '../chrome/SwatchShelf'
 import { FontShelf } from '../chrome/FontShelf'
-import { LiveCanvas } from '../chrome/LiveCanvas'
+import { WadaPlate } from '../chrome/WadaPlate'
 
 export function Home() {
   const { comboId, palette } = usePalette()
@@ -23,7 +23,7 @@ export function Home() {
             guardrail, not a good intention.
           </p>
         </div>
-        <LiveCanvas />
+        <WadaPlate />
       </section>
 
       <section className="mt-20">
