@@ -1,5 +1,7 @@
 # Neja — A Dictionary of Color Combinations
 
+**Live: https://neja.bassemfayed.com**
+
 A design system with a rule: **no color is invented.** Every hex value in this codebase traces back to one of the 159 named colors in Sanzo Wada's 1933 *A Dictionary of Color Combinations* — and a script, not a convention, enforces it.
 
 It's also the vehicle for something else: a working demo of a native Claude Code multi-agent harness. Every component here was built by a four-stage agent pipeline — different models per stage, structured JSON handoffs instead of prose, and a hard guardrail no agent (or human) can quietly route around.
@@ -93,3 +95,7 @@ Vite · React · TypeScript · Tailwind CSS v4 · `class-variance-authority` · 
 - Color data: Sanzo Wada, *A Dictionary of Color Combinations* (c. 1933)
 - Dataset: [`mattdesl/dictionary-of-colour-combinations`](https://github.com/mattdesl/dictionary-of-colour-combinations) (MIT)
 - Typefaces: Zen Old Mincho, Zen Kaku Gothic New, JetBrains Mono
+
+---
+
+made with ❤️‍🔥 by [BF](https://bassemfayed.com) · [Portfolio](https://bassemfayed.com) · [GitHub](https://github.com/BassemFd) · [LinkedIn](https://www.linkedin.com/in/bassem-fd) · [Email](mailto:bassem.fayed@gmail.com)
