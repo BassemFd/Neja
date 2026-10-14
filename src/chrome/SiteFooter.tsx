@@ -2,7 +2,6 @@
 const ELSEWHERE = [
   { label: 'Career log', href: 'https://bassemfayed.com/' },
   { label: 'ai/watch', href: 'https://ai-watch.bassemfayed.com/en/' },
-  { label: 'mymoviz', href: 'https://moviz.bassemfayed.com/' },
 ]
 
 export function SiteFooter() {
