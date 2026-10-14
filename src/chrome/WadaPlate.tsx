@@ -79,7 +79,7 @@ export function WadaPlate() {
         >
           In use
         </span>
-        <p className="mt-2 font-display text-lg leading-snug">Kimono, stage, screen.</p>
+        <p className="mt-2 font-display text-lg leading-snug">Your interface, in 1933 colors.</p>
         <p className="mt-1 text-xs" style={{ color: 'var(--color-text-muted)' }}>
           The same plate, applied as a theme.
         </p>
